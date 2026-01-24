@@ -2,6 +2,7 @@
     require_once dirname(__DIR__)."/vendor/autoload.php";
     require __DIR__ . '/../app/Core/Helpers/view.php';
 
+    use App\Core\Container;
     use App\Core\Env;
     use App\Http\Request;
     use App\Core\Facade\Route;
@@ -10,9 +11,11 @@
     session_start();
     try{
         Env::load(dirname(__DIR__)."/.env");
+        
         $request = Request::capture();
-    
-        $router = new Router();
+        $container = new Container();
+        $container->instance(Request::class, $request);
+        $router = new Router($container);
 
         Route::setRouter($router);
         require dirname(__DIR__)."/routes/web.php";

@@ -4,6 +4,11 @@
 
     class Router{
         private array $routes = [];
+        private Container $container;
+
+        public function __construct(Container $container){
+            $this->container = $container;
+        }
 
         public function add(string $method, string $path ,array|callable $action, array $middleware = []):void{
             $this->routes[] = compact("method", "path", "action", "middleware");
@@ -29,7 +34,7 @@
 
                     if(is_array($route['action'])){
                         [$controllerClass, $methodName] = $route['action'];
-                        $controllerInstance = new $controllerClass;
+                        $controllerInstance = $this->container->make($controllerClass);
                         call_user_func_array([$controllerInstance, $methodName], $matches);
                         return;
                     }
