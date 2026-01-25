@@ -94,10 +94,107 @@
                 </div>
             </div>
         </div>
-
     </div>
 </section>
+<section>
+    <div class="d-flex align-items-center justify-content-between bg-white p-3 mb-3">
+        <h4 class="fw-semibold">Découvrez les nouveaux produits</h4>
+        <a class="btn btn-sm btn-dark text-white" href="/produit/nouveau">Voir tout</a>
+    </div>
 
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        <?php foreach ($resentProduits as $produit): ?>
+            <?php require __DIR__."/../partials/card.php"; ?>
+        <?php endforeach; ?>
+    </div>
+</section>
+<section class="mt-5 mb-4">
+    <div class="row g-3">
+
+        <div class="col-md-4">
+            <div class="position-relative rounded overflow-hidden shadow-sm">
+                <img 
+                    src="/assets/images/ads/Banniére-Site-Web-8.jpg"
+                    class="img-fluid w-100"
+                    alt="Publicité secondaire"
+                >
+
+                <div class="position-absolute top-0 start-0 w-100 h-100 
+                            d-flex align-items-end
+                            text-dark p-3">
+                    <div>
+                        <h6 class="fw-bold mb-1">Sneakers tendance</h6>
+                        <a 
+                            href="/produit/456"
+                            class="text-dark text-decoration-underline small"
+                        >
+                            Découvrir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="position-relative rounded overflow-hidden shadow-sm">
+                <img 
+                    src="/assets/images/ads/Banniére-Site-Web-2.jpg"
+                    class="img-fluid w-100"
+                    alt="Publicité secondaire"
+                >
+
+                <div class="position-absolute top-0 start-0 w-100 h-100 
+                            d-flex align-items-end
+                            text-dark p-3">
+                    <div>
+                        <h6 class="fw-bold mb-1">Montres élégantes</h6>
+                        <a 
+                            href="/produit/789"
+                            class="text-dark text-decoration-underline small"
+                        >
+                            Voir l’offre
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="position-relative rounded overflow-hidden shadow-sm">
+                <img 
+                    src="/assets/images/ads/Banniére-Site-Web-1.jpg"
+                    class="img-fluid w-100"
+                    alt="Publicité secondaire"
+                >
+
+                <div class="position-absolute top-0 start-0 w-100 h-100 
+                            d-flex align-items-end
+                            text-dark p-3">
+                    <div>
+                        <h6 class="fw-bold mb-1">Montres élégantes</h6>
+                        <a 
+                            href="/produit/789"
+                            class="text-dark text-decoration-underline small"
+                        >
+                            Voir l’offre
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="d-flex align-items-center justify-content-between bg-white p-3 mb-3">
+        <h4 class="fw-semibold">Découvrez les produits populaires</h4>
+        <a class="btn btn-sm btn-dark text-white" href="/produit/populaire">Voir tout</a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        <?php foreach ($popularProducts as $produit): ?>
+            <?php require __DIR__."/../partials/card.php"; ?>
+        <?php endforeach; ?>
+    </div>
+</section>
 <?php 
     $content = ob_get_clean();
     $title = "Accueil";

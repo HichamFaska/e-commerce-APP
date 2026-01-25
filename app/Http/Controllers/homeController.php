@@ -12,6 +12,12 @@
 
         public function index():void{
             $promotedProducts = $this->produit->getPromotedProducts();
-            view("pages/homePage", ['promotedProducts' => $promotedProducts]);
+            $popularProducts = $this->produit->getPopularProducts();
+            $resentProduits = $this->produit->getResentProduits();
+            view("pages/homePage", [
+                'promotedProducts' => $promotedProducts,
+                'popularProducts' => $popularProducts,
+                'resentProduits' => $resentProduits
+            ]);
         }
     }
