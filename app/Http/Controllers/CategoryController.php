@@ -1,6 +1,7 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Auth\Auth;
     use App\Models\Categorie;
 
     class CategoryController{
@@ -12,6 +13,10 @@
 
         public function navbar(){
             $categories  = $this->categorie->getCategories();
-            view("partials/navbar", ['categories' => $categories]);
+            $username = Auth::getUsername();
+            view("partials/navbar", [
+                'categories' => $categories,
+                'username' => $username
+            ]);
         }
     }

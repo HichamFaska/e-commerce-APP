@@ -14,10 +14,23 @@
                 <i class="fa-regular fa-user me-1"></i> Compte
             </a>
 
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm border"
-                style="border-color:#d0d7de;">
-                <li><a class="dropdown-item" href="/login">Connexion</a></li>
-                <li><a class="dropdown-item" href="/register">Inscription</a></li>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border" style="border-color:#d0d7de;">
+                <li>
+                    <a class="dropdown-item" href="<?= !is_null($username) ? '/logout' : '/login' ?>">
+                        <?php if (!is_null($username)): ?>
+                            <i class="fa-solid fa-user me-2 text-secondary"></i>
+                            <?= htmlspecialchars($username) ?>
+                        <?php else: ?>
+                            <i class="fa-solid fa-right-to-bracket me-2 text-secondary"></i>
+                            Connexion
+                        <?php endif; ?>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="/register">
+                        <i class="fa-solid fa-user-plus me-2 text-secondary"></i>Inscription
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

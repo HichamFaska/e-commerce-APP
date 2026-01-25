@@ -29,7 +29,7 @@
                 return;
             }
 
-            Auth::login($user->id_utilisateur, $user->role);
+            Auth::login($user->id_utilisateur, $user->role, $user->username);
             if(Auth::role() === "admin"){
                 header('Location: /admin/dashboard');
                 exit;
