@@ -1,14 +1,12 @@
 <?php
     use App\Core\Facade\Route;
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\homeController;
     use App\Http\middleware\AuthMiddleware;
     use App\Http\middleware\GuestMiddleware;
     use App\Http\middleware\RoleMiddleware;
 
-    Route::get('/', function (){
-        echo "bienvenue a mon App e-commerce";
-        var_dump($_SESSION);
-    },[AuthMiddleware::class, function (){return new RoleMiddleware('user');}]);
+    Route::get('/',[homeController::class, 'index'],[AuthMiddleware::class, function (){return new RoleMiddleware('user');}]);
 
     Route::get('/login', [AuthController::class, 'showLogin'], [GuestMiddleware::class]);
     Route::post('/login', [AuthController::class, 'login'], [GuestMiddleware::class]);
