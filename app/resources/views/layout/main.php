@@ -33,7 +33,7 @@
         $navbarController->navbar();
     ?>
 
-    <main class="flex-fill container my-4">
+    <main class="flex-fill mx-2 my-4">
         <div class="app-container">
             <?= $content ?? '' ?>
         </div>
