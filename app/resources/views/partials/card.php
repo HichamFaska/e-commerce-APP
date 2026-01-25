@@ -30,7 +30,7 @@
                 <?php endif; ?>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-1">
                 <?php $enStock = $produit->quantiteStock > 0; ?>
                 <?php if (!$enStock): ?>
                     <span class="badge rounded-pill text-bg-danger">
