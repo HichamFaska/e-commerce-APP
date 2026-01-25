@@ -85,4 +85,69 @@
                 throw new Exception("Une erreur s'est produite.");
             }
         }
+
+        public function getProductinfo(int $id):object{
+            try{
+                $stmt = $this->conn->prepare("SELECT p.id_Produit, p.designation, p.prixVente, p.quantiteStock, p.stock_critique, p.description, m.nomMarque, c.nomCategorie
+                    FROM produits AS p
+                    INNER JOIN categories AS c
+                        ON p.id_categorie = c.id_categorie
+                    INNER JOIN marques AS m
+                        ON m.id_marque = p.id_marque
+                    WHERE p.id_Produit = ?"
+                );
+                $stmt->execute([$id]);
+                return $stmt->fetch();
+            }
+            catch(PDOException $e){
+                throw new Exception("Une erreur s'est produite.");
+            }
+        }
+
+        public function getImagesProduit(int $id):array{
+            $stmt = $this->conn->prepare("SELECT i.url, i.est_principal
+                FROM images_produit AS i
+                WHERE i.id_Produit = ?"
+            );
+            $stmt->execute([$id]);
+            return $stmt->fetchAll();
+        }
+
+        public function getCaracteristiquesProduit(int $id):array{
+            $stmt = $this->conn->prepare("SELECT car.caracteristique, car.value_caracteristique
+                FROM caracteristiques AS car
+                WHERE car.id_Produit = ?"
+            );
+            $stmt->execute([$id]);
+            return $stmt->fetchAll();
+        }
+
+        public function getPromotionProduit(int $id):array{
+            $stmt = $this->conn->prepare("SELECT  promo.valeur_discount, promo.date_debut, promo.dure
+                FROM promotions AS promo
+                WHERE promo.id_Produit = ? AND NOW() BETWEEN promo.date_debut AND DATE_ADD(promo.date_debut, INTERVAL promo.dure DAY);
+            ");
+            $stmt->execute([$id]);
+            return $stmt->fetchAll();
+        }
+
+        public function getDetailsOfProduct(int $id):array{
+            try{
+                $productInfo = $this->getProductinfo($id);
+                $images = $this->getImagesProduit($id);
+                $caracteristiques = $this->getCaracteristiquesProduit($id);
+                $promotion = $this->getPromotionProduit($id);
+
+                return [
+                    "infoProduit" => $productInfo,
+                    "images" => $images,
+                    "caracteristiques" => $caracteristiques,
+                    "promotion" => $promotion
+                ];
+            }
+            catch(PDOException $e){
+                throw new PDOException("une Erreur lors de la selection des détails d'un produit");
+            }
+        }
+        
     }
