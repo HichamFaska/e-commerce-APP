@@ -23,6 +23,10 @@
             return strtok($uri, '?');
         }
 
+        public function previous():?string{
+            return $this->request['HTTP_REFERER'] ?? null;
+        }
+        
         public function input(string $key, mixed $default = null):mixed{
             return $this->request[$key]
                 ?? $this->query[$key]

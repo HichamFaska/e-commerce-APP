@@ -27,9 +27,16 @@
                 if(preg_match($regex, $path, $matches)){
                     array_shift($matches);
 
-                    foreach($route['middleware'] as $middlewareClass){
-                        $middleware = new $middlewareClass();
-                        $middleware->handle($request);
+                    foreach($route['middleware'] as $middleware){
+
+                        if(is_callable($middleware)){
+                            $middlewareInstance = $middleware($this->container);
+                            $middlewareInstance->handle($request);
+                            continue;
+                        }
+
+                        $middlewareInstance = new $middleware();
+                        $middlewareInstance->handle($request);
                     }
 
                     if(is_array($route['action'])){

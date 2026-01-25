@@ -5,10 +5,19 @@
     use App\Http\Request;
 
     class GuestMiddleware{
-        public function handle(Request $request){
-            if(Auth::check()){
-                header('Location: /');
+        public function handle(Request $request):void{
+            if (!Auth::check()) {
+                return;
+            }
+
+            $previous = $request->previous();
+
+            if ($previous && !str_contains($previous, '/login')){
+                header('Location: ' . $previous);
                 exit;
             }
+
+            header('Location: ' . (Auth::role() === 'admin' ? '/admin/dashboard' : '/'));
+            exit;
         }
     }

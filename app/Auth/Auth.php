@@ -3,8 +3,13 @@
 
 
     class Auth{
-        public static function login(int $userId){
+        public static function login(int $userId, string $role){
             $_SESSION['userId'] = $userId;
+            $_SESSION['role'] = $role;
+        }
+
+        public static function role():string{
+            return $_SESSION['role'] ?? null;
         }
 
         public static function logout():void{
