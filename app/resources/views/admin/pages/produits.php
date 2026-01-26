@@ -53,6 +53,7 @@
         </tbody>
     </table>
 </div>
+<?php require_once __DIR__."/../partials/addProductModal.php"; ?>
 <?php 
     $content = ob_get_clean();
     $title = "Products";
