@@ -1,6 +1,7 @@
 <?php
     use App\Core\Facade\Route;
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\CartController;
     use App\Http\Controllers\homeController;
     use App\Http\Controllers\ProductController;
     use App\Http\middleware\AuthMiddleware;
@@ -14,6 +15,11 @@
     Route::get('/logout', [AuthController::class, 'logout'], [AuthMiddleware::class]);
 
     Route::get('/product/{id}', [ProductController::class, 'index']);
+
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart/add', [CartController::class, 'addToCart']);
+    Route::post('/cart/remove', [CartController::class, 'remove']);
+    Route::post('/cart/update', [CartController::class, 'update']);
 
     Route::get('/admin/dashboard', function (){
         echo "c'est la partie administration 😁";
