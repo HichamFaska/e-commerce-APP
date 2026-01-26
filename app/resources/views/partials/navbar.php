@@ -62,7 +62,11 @@
                             <?php endforeach; ?>
                         </ul>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="/" style="color:#24292f;">
+                            Accueil
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link fw-medium" href="/nouveautes" style="color:#24292f;">
                             Nouveautés
@@ -93,12 +97,12 @@
                     </button>
                 </form>
 
-                <a href="/panier"
+                <a href="/cart"
                 class="text-decoration-none position-relative ms-4"
                 style="color:#24292f;">
                     <i class="fa-solid fa-cart-shopping fs-5"></i>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
-                        0
+                        <?= $nbProduit ?>
                     </span>
                 </a>
             </div>

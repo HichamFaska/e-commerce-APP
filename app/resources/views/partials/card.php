@@ -39,7 +39,7 @@
                 <?php endif; ?>
             </div>
 
-            <a href="#" class="text-white btn <?= $enStock ? 'btn-dark' : 'btn-secondary disabled' ?> mt-auto fw-semibold shadow-sm" style="border-radius: 0.5rem; padding: 0.5rem 1rem;">
+            <a href="/product/<?= $produit->id_produit; ?>" class="text-white btn <?= $enStock ? 'btn-dark' : 'btn-secondary disabled' ?> mt-auto fw-semibold shadow-sm" style="border-radius: 0.5rem; padding: 0.5rem 1rem;">
                 <i class="fa-solid fa-cart-plus me-1"></i> Ajouter au panier
             </a>
         </div>
