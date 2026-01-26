@@ -65,11 +65,12 @@
             </a>
         </div>
 
-        <div class="card p-5">
+        <div class="card py-4 px-4">
             <?= $content ?? '' ?>
         </div>
     </main>
 
 <script src = "/assets/js/mainAdmin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

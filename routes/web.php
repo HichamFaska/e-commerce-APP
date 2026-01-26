@@ -1,5 +1,6 @@
 <?php
     use App\Core\Facade\Route;
+    use App\Http\Controllers\AdminProductController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\CartController;
     use App\Http\Controllers\homeController;
@@ -25,7 +26,5 @@
 
     },[function (){ return new RoleMiddleware('admin');}]);
 
-    Route::get('/admin/products', function (){
-
-    },[function (){ return new RoleMiddleware('admin');}]);
+    Route::get('/admin/products',[AdminProductController::class, 'index'],[function (){ return new RoleMiddleware('admin');}]);
     

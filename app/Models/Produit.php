@@ -160,7 +160,7 @@
                         img.url, 
                         pr.valeur_discount
                     FROM produits AS p
-                    LEFT JOIN images_produit AS img 
+                    INNER JOIN images_produit AS img 
                         ON img.id_produit = p.id_produit
                         AND img.est_principal = 1
                     LEFT JOIN promotions AS pr 
@@ -174,6 +174,26 @@
             }
             catch(PDOException $e){
                 throw new PDOException("Erreur est survenue!");
+            }
+        }
+
+        public function getAllProduts():array{
+            try{
+                $stmt = $this->conn->prepare("SELECT 
+                    p.*,
+                    c.nomCategorie,
+                    m.nomMarque
+                    FROM produits AS p
+                    INNER JOIN categories AS c
+                        ON p.id_categorie = c.id_categorie
+                    INNER JOIN marques AS m
+                        ON m.id_marque = p.id_marque"
+                );
+                $stmt->execute();
+                return $stmt->fetchAll();
+            }
+            catch(PDOException $e){
+                throw new Exception("Erreur est survenue!");
             }
         }
     }
