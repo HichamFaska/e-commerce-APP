@@ -14,7 +14,7 @@
 
         public function getPromotedProducts():array{
             try{
-                $stmt = $this->conn->prepare("SELECT p.designation, p.prixVente, p.quantiteStock, p.slug, i.url, m.nomMarque, pr.valeur_discount
+                $stmt = $this->conn->prepare("SELECT p.id_produit, p.designation, p.prixVente, p.quantiteStock, p.slug, i.url, m.nomMarque, pr.valeur_discount
                     FROM marques AS m
                     INNER JOIN produits AS p
                         ON m.id_marque = p.id_marque
@@ -65,7 +65,7 @@
 
         public function getResentProduits():array{
             try{
-                $stmt = $this->conn->prepare("SELECT p.designation, p.prixVente, p.quantiteStock, p.slug, i.url, m.nomMarque, pr.valeur_discount
+                $stmt = $this->conn->prepare("SELECT p.id_produit, p.designation, p.prixVente, p.quantiteStock, p.slug, i.url, m.nomMarque, pr.valeur_discount
                     FROM marques AS m
                     INNER JOIN produits AS p
                         ON m.id_marque = p.id_marque
@@ -149,5 +149,31 @@
                 throw new PDOException("une Erreur lors de la selection des détails d'un produit");
             }
         }
-        
+
+        public function find(int $id){
+            try{
+                $stmt = $this->conn->prepare("SELECT 
+                        p.id_produit, 
+                        p.designation, 
+                        p.prixVente,
+                        p.quantiteStock, 
+                        img.url, 
+                        pr.valeur_discount
+                    FROM produits AS p
+                    LEFT JOIN images_produit AS img 
+                        ON img.id_produit = p.id_produit
+                        AND img.est_principal = 1
+                    LEFT JOIN promotions AS pr 
+                        ON pr.id_produit = p.id_produit
+                        AND CURDATE() BETWEEN pr.date_debut AND DATE_ADD(pr.date_debut, INTERVAL pr.dure DAY)
+                    WHERE p.id_produit = ?
+                ");
+
+                $stmt->execute([$id]);
+                return $stmt->fetch();
+            }
+            catch(PDOException $e){
+                throw new PDOException("Erreur est survenue!");
+            }
+        }
     }
