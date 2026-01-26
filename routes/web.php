@@ -22,10 +22,10 @@
     Route::post('/cart/update', [CartController::class, 'update']);
 
     Route::get('/admin/dashboard', function (){
-        echo "c'est la partie administration 😁";
+
     },[function (){ return new RoleMiddleware('admin');}]);
 
-    Route::get('/admin/produit', function (){
-        echo "c'est la partie administration des produits 😁";
+    Route::get('/admin/products', function (){
+
     },[function (){ return new RoleMiddleware('admin');}]);
     

@@ -1,8 +1,6 @@
 <?php
     namespace App\Services;
 
-use App\Models\Produit;
-
     class CartService{
         public static function get():array{
             return $_SESSION['cart'] ?? [];
