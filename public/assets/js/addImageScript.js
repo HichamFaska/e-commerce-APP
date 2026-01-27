@@ -12,8 +12,8 @@ document.getElementById('addImageBtn').addEventListener('click', function() {
 
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'btn btn-outline-danger remove-image';
-    btn.textContent = 'X';
+    btn.className = 'btn btn-danger text-dark remove-image';
+    btn.innerHTML = "<i class='fa-solid fa-trash'></i>";
     btn.addEventListener('click', () => div.remove());
 
     div.appendChild(input);
