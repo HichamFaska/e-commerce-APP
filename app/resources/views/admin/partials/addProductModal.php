@@ -10,19 +10,23 @@
 
                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                     <div class="row g-3">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label class="form-label">Désignation</label>
                             <input type="text" name="designation" class="form-control" required>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label class="form-label">Prix d'achat</label>
                             <input type="number" name="prixAchat" step="0.01" class="form-control" required>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label class="form-label">Prix de vente</label>
                             <input type="number" name="prixVente" step="0.01" class="form-control" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">le stock critique</label>
+                            <input type="number" name="stock_critique" step="0.01" class="form-control" required>
                         </div>
 
                         <div class="col-md-6">
@@ -34,6 +38,9 @@
                             <label class="form-label">Marque</label>
                             <select name="id_marque" class="form-select" required>
                                 <option value="">-- Sélectionner --</option>
+                                <?php foreach($marques as $marque): ?>
+                                    <option value="<?= $marque->id_marque ?>"><?= $marque->nomMarque; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
@@ -41,7 +48,14 @@
                             <label class="form-label">Catégorie</label>
                             <select name="id_categorie" class="form-select" required>
                                 <option value="">-- Sélectionner --</option>
+                                <?php foreach($categories as $categorie): ?>
+                                    <option value="<?= $categorie->id_categorie ?>"><?= $categorie->nomCategorie; ?></option>
+                                <?php endforeach; ?>
                             </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">slug</label>
+                            <input type="text" name="slug" class="form-control" required>
                         </div>
 
                         <div class="col-12">
