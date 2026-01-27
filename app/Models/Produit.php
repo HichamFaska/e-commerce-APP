@@ -7,9 +7,11 @@
 
     class Produit{
         private PDO $conn;
+        private Caracteristique $caracteristique;
 
-        public function __construct(){
+        public function __construct(Caracteristique $caracteristique){
             $this->conn = Database::getConnection();
+            $this->caracteristique = $caracteristique;
         }
 
         public function getPromotedProducts():array{
@@ -194,6 +196,51 @@
             }
             catch(PDOException $e){
                 throw new Exception("Erreur est survenue!");
+            }
+        }
+
+        public function create(array $data, array $images, array $caracteristiques): int {
+            try {
+                $this->conn->beginTransaction();
+
+                $stmt = $this->conn->prepare("
+                    INSERT INTO produits (designation, prixAchat, prixVente, quantiteStock, stock_critique, slug, date_mise_en_vente, description, id_marque, id_categorie)
+                    VALUES (:designation, :prixAchat, :prixVente, :quantiteStock, :stock_critique, :slug, NOW(), :description, :id_marque, :id_categorie)
+                ");
+                $stmt->execute([
+                    ':designation' => $data['designation'],
+                    ':prixAchat' => $data['prixAchat'],
+                    ':prixVente' => $data['prixVente'],
+                    ':quantiteStock' => $data['quantiteStock'],
+                    ':stock_critique' => $data['stock_critique'] ?? 5,
+                    ':slug' => $data['slug'],
+                    ':description' => $data['description'],
+                    ':id_marque' => $data['id_marque'],
+                    ':id_categorie' => $data['id_categorie'],
+                ]);
+
+                $id_produit = (int)$this->conn->lastInsertId();
+                foreach ($images as $image) {
+                    $stmt = $this->conn->prepare("
+                        INSERT INTO images_produit (url, est_principal, id_Produit)
+                        VALUES (:url, :principal, :idProduit)
+                    ");
+                    $stmt->execute([
+                        ':url' => $image['url'],
+                        ':principal' => $image['principal'] ? 1 : 0,
+                        ':idProduit' => $id_produit,
+                    ]);
+                }
+                $countCaracteristiques = count($caracteristiques['caractName']);
+                for($i = 0; $i < $countCaracteristiques; $i++){
+                    $this->caracteristique->create($caracteristiques['caractName'][$i], $caracteristiques['caractValue'][$i], $id_produit);
+                }
+                
+                $this->conn->commit();
+                return $id_produit;
+            } catch (PDOException $e) {
+                $this->conn->rollBack();
+                throw new Exception("Erreur lors de la création d'un produit!");
             }
         }
     }
