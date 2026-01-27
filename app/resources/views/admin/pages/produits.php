@@ -24,7 +24,7 @@
             <?php foreach($allProducts as $all): ?>
                 <?php $hasContent = true; ?>
                 <tr>
-                    <td><?= $all->designation ?></td>
+                    <td class="w-25 text-wrap"><?= $all->designation ?></td>
                     <td><?= $all->nomMarque ?></td>
                     <td><?= $all->nomCategorie ?></td>
                     <td><?= $all->prixAchat ?></td>

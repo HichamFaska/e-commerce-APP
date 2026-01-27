@@ -27,4 +27,4 @@
     },[function (){ return new RoleMiddleware('admin');}]);
 
     Route::get('/admin/products',[AdminProductController::class, 'index'],[function (){ return new RoleMiddleware('admin');}]);
-    
+    Route::post('/admin/products/add',[AdminProductController::class, 'store'],[function (){ return new RoleMiddleware('admin');}]);

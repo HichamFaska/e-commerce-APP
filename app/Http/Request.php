@@ -36,7 +36,9 @@
         public function file(string $key, mixed $default = null): mixed{
             return $this->files[$key] ?? $default;
         }
-
+        public function files():array{
+            return $this->files ?? [];
+        }
         public function cookie(string $key, mixed $default = null): mixed{
             return $this->cookies[$key] ?? $default;
         }
