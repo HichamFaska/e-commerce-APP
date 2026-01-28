@@ -2,9 +2,9 @@
     namespace App\Models;
 
     use App\Database\Database;
-use Exception;
-use PDO;
-use PDOException;
+    use Exception;
+    use PDO;
+    use PDOException;
 
     class Adresse{
         private PDO $conn;
@@ -45,13 +45,13 @@ use PDOException;
             }
         }
 
-        public function find(int $id_address):object{
+        public function find(int $id_address):int{
             try{
                 $stmt = $this->conn->prepare("SELECT * FROM adresses WHERE id_adresse = :id_adresse");
                 $stmt->execute([
                     ":id_adresse" => $id_address
                 ]);
-                return $stmt->fetch();
+                return $stmt->fetch()->id_adresse;
             }
             catch(PDOException $e){
                 throw new Exception("Erreur est survenue!");

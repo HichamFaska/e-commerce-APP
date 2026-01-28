@@ -5,6 +5,7 @@
     use App\Http\Controllers\CartController;
     use App\Http\Controllers\homeController;
     use App\Http\Controllers\ProductController;
+    use App\Http\Controllers\CheckoutController;
     use App\Http\middleware\AuthMiddleware;
     use App\Http\middleware\GuestMiddleware;
     use App\Http\middleware\RoleMiddleware;
@@ -21,6 +22,9 @@
     Route::post('/cart/add', [CartController::class, 'addToCart']);
     Route::post('/cart/remove', [CartController::class, 'remove']);
     Route::post('/cart/update', [CartController::class, 'update']);
+
+    Route::get('/checkout',[CheckoutController::class, 'index'], [AuthMiddleware::class]);
+    Route::post('/checkout',[CheckoutController::class, 'store'], [AuthMiddleware::class]);
 
     Route::get('/admin/dashboard', function (){
 
