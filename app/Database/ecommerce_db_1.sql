@@ -108,3 +108,8 @@ CREATE TABLE lignesCommande (
 );
 
 ALTER TABLE utilisateurs ADD COLUMN role VARCHAR(50) DEFAULT 'user';
+
+ALTER TABLE commandes 
+MODIFY COLUMN statut ENUM('en_attente','en_cours','livrée','annulée','payé') 
+DEFAULT 'en_attente' 
+NOT NULL;

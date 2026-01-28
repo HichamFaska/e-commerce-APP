@@ -42,4 +42,8 @@
         public function cookie(string $key, mixed $default = null): mixed{
             return $this->cookies[$key] ?? $default;
         }
+
+        public function has(string $key):bool{
+            return isset($this->request[$key]);
+        }
     }
