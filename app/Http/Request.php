@@ -44,6 +44,6 @@
         }
 
         public function has(string $key):bool{
-            return isset($this->request[$key]);
+            return isset($this->request[$key]) || isset($this->query[$key]);
         }
     }
