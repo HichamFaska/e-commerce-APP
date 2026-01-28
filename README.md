@@ -102,3 +102,77 @@ Pour toute question ou problème lors de l’installation, veuillez vérifier qu
 - Votre serveur MySQL est opérationnel.
 - Le fichier `.env` contient bien vos informations de base de données.
 
+## Configuration Stripe – Guide Complet
+
+### 1. Créer un compte Stripe
+
+1. Allez sur le site officiel de Stripe  
+   👉 https://dashboard.stripe.com/register
+
+2. Créez un compte (email, mot de passe).
+
+3. Une fois connecté, vous arrivez sur le **Stripe Dashboard**.
+
+### 2. Passer en mode Test (recommandé)
+
+Dans le dashboard Stripe :
+
+- En haut à droite, activez le bouton **“Mode test”**
+- Toutes les clés commenceront par `pk_test_` et `sk_test_`
+---
+
+### 3. Obtenir les clés API Stripe
+
+1. Dans le menu gauche du dashboard Stripe :
+   - Cliquez sur **Developers**
+   - Puis **API keys**
+
+2. Vous verrez deux clés importantes :
+
+| Clé | Description |
+|----|------------|
+| **Publishable key** | Utilisée côté frontend |
+| **Secret key** | Utilisée côté backend (PHP) |
+
+Exemple :
+```text
+Publishable key : pk_test_51XXXX
+Secret key      : sk_test_51XXXX
+```
+
+---
+
+### 4. Où placer les clés dans l’application
+
+#### 4.1 Fichier `.env.example`
+
+Ce fichier sert de **modèle**.  
+Il ne contient **jamais de vraies clés**.
+
+```dotenv
+SECRET KEY=tyui....
+```
+
+#### 4.2 Fichier `.env`
+
+Copiez `.env.example` et renommez-le en `.env`, puis ajoutez vos vraies clés :
+
+```dotenv
+SECRET KEY=XXXX
+```
+
+### 5. Cartes de test Stripe
+
+Pour tester les paiements en mode test :
+
+| Champ | Valeur |
+|----|-------|
+| Numéro de carte | `4242 4242 4242 4242` |
+| Date d’expiration | N’importe quelle date future |
+| CVC | `123` |
+
+---
+
+### 6. Documentation officielle
+
+https://stripe.com/docs
