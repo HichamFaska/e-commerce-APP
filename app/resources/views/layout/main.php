@@ -28,8 +28,10 @@
 <body class="d-flex flex-column min-vh-100">
 
     <?php
-        $navbarController = new App\Http\Controllers\CategoryController();
-        $navbarController->navbar();
+        $navbarService = new App\Services\NavbarService(new App\Models\Categorie());
+        $navbarData = $navbarService->getData();
+
+        view('partials/navbar', $navbarData);
     ?>
 
     <main class="flex-fill mx-2 my-4">

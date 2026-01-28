@@ -3,7 +3,8 @@
     use App\Http\Controllers\AdminProductController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\CartController;
-    use App\Http\Controllers\homeController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\homeController;
     use App\Http\Controllers\ProductController;
     use App\Http\Controllers\CheckoutController;
     use App\Http\middleware\AuthMiddleware;
@@ -17,6 +18,8 @@
     Route::get('/logout', [AuthController::class, 'logout'], [AuthMiddleware::class]);
 
     Route::get('/product/{id}', [ProductController::class, 'index']);
+
+    Route::get('/categorie/{categorie}', [CategoryController::class, 'index']);
 
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart/add', [CartController::class, 'addToCart']);

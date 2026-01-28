@@ -39,7 +39,7 @@
 
         public function getPopularProducts():array{
             try{
-                $stmt = $this->conn->prepare("SELECT p.id_produit, p.designation, p.prixVente, p.quantiteStock, m.nomMarque, i.url AS imagePrincipale, pr.valeur_discount, pv.Total
+                $stmt = $this->conn->prepare("SELECT p.id_produit, p.designation, p.prixVente, p.quantiteStock, m.nomMarque, i.url, pr.valeur_discount, pv.Total
                     FROM marques AS m
                     INNER JOIN produits AS p
                         ON p.id_marque = m.id_marque 
@@ -241,6 +241,29 @@
             } catch (PDOException $e) {
                 $this->conn->rollBack();
                 throw new Exception("Erreur lors de la création d'un produit!");
+            }
+        }
+
+        public function getProductsByCategorie(string $categorie):array{
+              try{
+                $stmt = $this->conn->prepare("SELECT p.id_produit, p.designation, p.prixVente, p.quantiteStock, p.slug, i.url, m.nomMarque, pr.valeur_discount
+                    FROM marques AS m
+                    INNER JOIN produits AS p
+                        ON m.id_marque = p.id_marque
+                    INNER JOIN categories as c
+                        ON c.id_categorie = p.id_categorie
+                    INNER JOIN images_produit AS i
+                        ON i.id_produit = p.id_produit
+                    LEFT JOIN promotions AS pr
+                        ON pr.id_produit = p.id_produit
+                        AND NOW() BETWEEN pr.date_debut AND DATE_ADD(pr.date_debut, INTERVAL pr.dure DAY)
+                    WHERE i.est_principal = 1 AND c.nomCategorie = ?
+                ");
+                $stmt->execute([$categorie]);
+                return $stmt->fetchAll();
+            }
+            catch(PDOException $e){
+                throw new Exception("Une erreur s'est produite.");
             }
         }
     }

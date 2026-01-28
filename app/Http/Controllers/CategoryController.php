@@ -1,25 +1,21 @@
 <?php
     namespace App\Http\Controllers;
 
-    use App\Auth\Auth;
-    use App\Models\Categorie;
-    use App\Services\CartService;
+    use App\Models\Produit;
 
     class CategoryController{
-        private Categorie $categorie;
+        
+        private Produit $produit;
 
-        public function __construct(){
-            $this->categorie = new Categorie();
+        public function __construct(Produit $produit,){
+            $this->produit = $produit;
         }
 
-        public function navbar(){
-            $categories  = $this->categorie->getCategories();
-            $username = Auth::getUsername();
-            $nbProduit = CartService::count();
-            view("partials/navbar", [
-                'categories' => $categories,
-                'username' => $username,
-                'nbProduit' => $nbProduit
+        public function index(string $categorie):void{
+            $products = $this->produit->getProductsByCategorie($categorie);
+            view('pages/productsByCategorie', [
+                'products' => $products,
+                'categorie' => $categorie
             ]);
         }
     }
