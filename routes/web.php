@@ -3,8 +3,9 @@
     use App\Http\Controllers\AdminProductController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\homeController;
+    use App\Http\Controllers\CategoryController;
+    use App\Http\Controllers\homeController;
+    use App\Http\Controllers\PaymentController;
     use App\Http\Controllers\ProductController;
     use App\Http\Controllers\CheckoutController;
     use App\Http\middleware\AuthMiddleware;
@@ -28,6 +29,12 @@ use App\Http\Controllers\homeController;
 
     Route::get('/checkout',[CheckoutController::class, 'index'], [AuthMiddleware::class]);
     Route::post('/checkout',[CheckoutController::class, 'store'], [AuthMiddleware::class]);
+
+    Route::get('/payment', [PaymentController::class, 'index'], [AuthMiddleware::class]);
+    Route::post('/payment/stripe', [PaymentController::class, 'pay']);
+    // Route::get('/payment/success?session_id={CHECKOUT_SESSION_ID}', [PaymentController::class, 'success'], [AuthMiddleware::class]);
+    Route::get('/payment/success', [PaymentController::class, 'success'], [AuthMiddleware::class]);
+    Route::get('/payment/cancel', [PaymentController::class, 'cancel'],[AuthMiddleware::class]);
 
     Route::get('/admin/dashboard', function (){
 
