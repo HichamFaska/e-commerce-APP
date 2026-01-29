@@ -50,8 +50,10 @@ use App\Services\OrderService;
             }
             $items = CartService::get();
             $numCommande = $this->orderService->getNewNumCommande();
-            $this->commande->create($items, $numCommande, $id_adresse ,$id_utilisateur);
+            $id_commande = $this->commande->create($items, $numCommande, $id_adresse ,$id_utilisateur);
 
+            $_SESSION['id_commande'] = $id_commande;
+            
             header('Location: /payment');
             exit;
         }
