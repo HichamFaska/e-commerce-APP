@@ -25,7 +25,7 @@
 
         public function create(array $data):int{
             try{
-                $stmt = $this->conn->prepare("INSERT INTO utilisateurs VALUES (NULL, ?, ?, ?)");
+                $stmt = $this->conn->prepare("INSERT INTO utilisateurs (username, email, motDePasse)VALUES (?, ?, ?)");
                 $stmt->execute([
                     $data['username'],
                     $data['email'],
