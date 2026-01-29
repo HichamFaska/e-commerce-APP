@@ -25,7 +25,7 @@
             }
         }
 
-        public function create(array $items, string $numCommande, int $id_adresse, int $id_utilisateur):void{
+        public function create(array $items, string $numCommande, int $id_adresse, int $id_utilisateur):int{
             try{
                 $this->conn->beginTransaction();
 
@@ -39,6 +39,7 @@
                 }
 
                 $this->conn->commit();
+                return $id_commande;
             }
             catch(PDOException $e){
                 $this->conn->rollBack();
@@ -46,4 +47,13 @@
             }
         }
 
+        public function update(int $id_commande, string $statut):void{
+            try{
+                $stmt = $this->conn->prepare("UPDATE commandes SET statut = ? WHERE id_commande = ?");
+                $stmt->execute([$statut, $id_commande]);
+            }
+            catch(PDOException $e){
+                throw new Exception("Erreur lors de la modification");
+            }
+        }
     }
