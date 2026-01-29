@@ -1,5 +1,7 @@
 <?php
-    use App\Core\Facade\Route;
+
+use App\Auth\Auth;
+use App\Core\Facade\Route;
     use App\Http\Controllers\AdminProductController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\CartController;
@@ -14,6 +16,9 @@
 
     Route::get('/',[homeController::class, 'index']);
 
+    Route::get('/register', [AuthController::class, 'showRegister'], [GuestMiddleware::class]);
+    Route::post('/register', [AuthController::class, 'register'],[GuestMiddleware::class]);
+    
     Route::get('/login', [AuthController::class, 'showLogin'], [GuestMiddleware::class]);
     Route::post('/login', [AuthController::class, 'login'], [GuestMiddleware::class]);
     Route::get('/logout', [AuthController::class, 'logout'], [AuthMiddleware::class]);
@@ -32,7 +37,6 @@
 
     Route::get('/payment', [PaymentController::class, 'index'], [AuthMiddleware::class]);
     Route::post('/payment/stripe', [PaymentController::class, 'pay']);
-    // Route::get('/payment/success?session_id={CHECKOUT_SESSION_ID}', [PaymentController::class, 'success'], [AuthMiddleware::class]);
     Route::get('/payment/success', [PaymentController::class, 'success'], [AuthMiddleware::class]);
     Route::get('/payment/cancel', [PaymentController::class, 'cancel'],[AuthMiddleware::class]);
 
