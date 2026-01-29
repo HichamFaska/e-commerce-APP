@@ -75,10 +75,10 @@ DB_PASSWORD=
 Pour lancer le serveur local et tester le projet, utilisez la commande suivante depuis la racine du projet :
 
 ```bash
-php -S 127.0.0.1:8000 -t public
+php -S 127.0.0.1:8001 -t public
 ```
 
-- Le projet sera accessible via l’URL : [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- Le projet sera accessible via l’URL : [http://127.0.0.1:8001](http://127.0.0.1:8001)
 - Toutes les pages et fonctionnalités (home, détails produit, panier, etc.) seront disponibles.
 
 ---
@@ -150,7 +150,7 @@ Ce fichier sert de **modèle**.
 Il ne contient **jamais de vraies clés**.
 
 ```dotenv
-SECRET KEY=tyui....
+SECRET_KEY=tyui....
 ```
 
 #### 4.2 Fichier `.env`
@@ -158,7 +158,7 @@ SECRET KEY=tyui....
 Copiez `.env.example` et renommez-le en `.env`, puis ajoutez vos vraies clés :
 
 ```dotenv
-SECRET KEY=XXXX
+SECRET_KEY=XXXX
 ```
 
 ### 5. Cartes de test Stripe
