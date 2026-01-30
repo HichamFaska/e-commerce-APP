@@ -34,8 +34,16 @@
                 return $this->conn->lastInsertId();
             }
             catch(PDOException $e){
-                throw new Exception("erreur lors du login");
+                throw new Exception("erreur lors d'inscription.");
             }
         }
 
+        public function updatePassword(string $email,string $newPassword){
+            try{
+                $stmt = $this->conn->prepare("UPDATE utilisateurs SET motDePasse = ? WHERE email = ?");
+                $stmt->execute([$newPassword, $email]);
+            }catch(PDOException $e){
+                throw new Exception("erreur lors de modification du mot de passe!!");
+            }
+        }
     }

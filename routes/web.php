@@ -1,7 +1,6 @@
 <?php
 
-use App\Auth\Auth;
-use App\Core\Facade\Route;
+    use App\Core\Facade\Route;
     use App\Http\Controllers\AdminProductController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\CartController;
@@ -10,6 +9,7 @@ use App\Core\Facade\Route;
     use App\Http\Controllers\PaymentController;
     use App\Http\Controllers\ProductController;
     use App\Http\Controllers\CheckoutController;
+    use App\Http\Controllers\PasswordController;
     use App\Http\middleware\AuthMiddleware;
     use App\Http\middleware\GuestMiddleware;
     use App\Http\middleware\RoleMiddleware;
@@ -18,10 +18,22 @@ use App\Core\Facade\Route;
 
     Route::get('/register', [AuthController::class, 'showRegister'], [GuestMiddleware::class]);
     Route::post('/register', [AuthController::class, 'register'],[GuestMiddleware::class]);
-    
+
     Route::get('/login', [AuthController::class, 'showLogin'], [GuestMiddleware::class]);
     Route::post('/login', [AuthController::class, 'login'], [GuestMiddleware::class]);
     Route::get('/logout', [AuthController::class, 'logout'], [AuthMiddleware::class]);
+
+    Route::get('/forgot-password', [PasswordController::class, 'showForgot'], [GuestMiddleware::class]);
+    Route::post('/forgot-password', [PasswordController::class, 'sendOtp'], [GuestMiddleware::class]);
+
+    Route::get('/verify-otp/{token}', [PasswordController::class, 'showOtp']);
+    Route::post('/verify-otp/{token}', [PasswordController::class, 'verifyOtp']);
+
+    Route::get('/reset-password/{token}', [PasswordController::class, 'showReset']);
+    Route::post('/reset-password/{token}', [PasswordController::class, 'resetPassword']);
+
+    Route::get('/reset-password-success',[PasswordController::class, 'success'], [GuestMiddleware::class]);
+    
 
     Route::get('/product/{id}', [ProductController::class, 'index']);
 
