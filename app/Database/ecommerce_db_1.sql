@@ -9,6 +9,15 @@ CREATE TABLE utilisateurs (
     motDePasse VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE password_resets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    otp VARCHAR(6) NOT NULL,
+    token VARCHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE adresses (
     id_adresse INT AUTO_INCREMENT PRIMARY KEY,
     pays VARCHAR(50) NOT NULL,
