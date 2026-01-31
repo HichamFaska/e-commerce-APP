@@ -266,4 +266,14 @@
                 throw new Exception("Une erreur s'est produite.");
             }
         }
+
+        public function updateStock(int $id_produit, int $quantite):void{
+            try{
+                $stmt = $this->conn->prepare("UPDATE produits SET quantiteStock = quantiteStock - ? WHERE id_produit = ?");
+                $stmt->execute([$quantite, $id_produit]);
+            }
+            catch(PDOException $e){
+                throw new Exception("erreur lors de la modification du quantité en Stock.");
+            }
+        }
     }
