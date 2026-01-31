@@ -31,17 +31,19 @@
                     <td><?= $all->prixVente ?></td>
                     <td><?= ($all->quantiteStock > 0) ? $all->quantiteStock : $all->quantiteStock.' (repture de stock)' ?></td>
                     <td class="text-center">
-                        <a href="/admin/produit/view?id=<?= $all->id_produit ?>" class="btn btn-sm btn-dark" title="Voir">
-                            <i class="fa-solid fa-eye"></i>
-                        </a>
+                        <div class = "d-flex align-items-center justufy-content-center gap-1">
+                            <a href="/admin/produit/view?id=<?= $all->id_produit ?>" class="btn btn-sm btn-dark" title="Voir">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
 
-                        <a href="/admin/produit/edit?id=<?= $all->id_produit ?>" class="btn btn-sm btn-dark" title="Modifier">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
+                            <a href="/admin/produit/edit?id=<?= $all->id_produit ?>" class="btn btn-sm btn-dark" title="Modifier">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
 
-                        <a href="/admin/produit/delete?id=<?= $all->id_produit ?>" class="btn btn-sm btn-dark" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
+                            <a href="/admin/produit/delete?id=<?= $all->id_produit ?>" class="btn btn-sm btn-dark" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
